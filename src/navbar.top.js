@@ -28,9 +28,9 @@ class NavBarTop extends Component {
             <Button
               bsStyle="primary"
               className="btn-margin"
-              onClick={this.goTo.bind(this, 'diary')}
+              onClick={this.goTo.bind(this, 'map')}
             >
-              Home
+              Map
             </Button>
             {
               !isAuthenticated() && (

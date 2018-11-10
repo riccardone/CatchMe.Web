@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import Home from './Home/Home';
 import Diary from './Diary/Diary';
+import Map from './Map/Map';
 import MyDiary from './Diary/MyDiary';
 import Repository from './Diary/Repository';
 import History from './History/History';
@@ -32,6 +33,7 @@ export const makeMainRoutes = () => {
           <Route exact path="/home" render={(props) => <Home auth={auth} {...props} />} />
           <Route exact path="/diary/:diaryname" render={(props) => <MyDiary {...props} />} />
           <Route exact path="/diary" render={(props) => <Diary auth={auth} {...props} />} />          
+          <Route exact path="/map" render={(props) => <Map auth={auth} {...props} />} />          
           <Route path="/callback" render={(props) => {
             handleAuthentication(props);
             return <Callback {...props} />;
