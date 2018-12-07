@@ -1,0 +1,9 @@
+.footer {
+    color: white;
+    background-color: #2D3E50;
+    text-align: center;
+}
+
+.footer a:link, a:visited {
+    color: white;
+}
