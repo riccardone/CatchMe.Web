@@ -25,13 +25,13 @@ class NavBarTop extends Component {
             <Navbar.Brand>
               <a href="/home">CatchMe</a>
             </Navbar.Brand>
-            <Button
+            {/* <Button
               bsStyle="primary"
               className="btn-margin"
               onClick={this.goTo.bind(this, 'map')}
             >
               Map
-            </Button>
+            </Button> */}
             {
               !isAuthenticated() && (
                   <Button

@@ -40,7 +40,7 @@ export default class Auth {
             localStorage.setItem('profileNickname', authResult.profile.nickname);
             localStorage.setItem('profilePicture', authResult.profile.picture);
             // navigate to the home route
-            history.replace('/home');
+            history.replace('/map');
           } else {
             console.log("client.userInfo is null");
           }

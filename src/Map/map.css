@@ -1,22 +1,11 @@
-body {
-  background-color: #EEE;
+body, html {
+    margin: 0;
+    padding: 0;
+    background-color: #2D3E50;    
+    margin-top: 0px;
 }
 
-#root > div {
-  background-color: white;
-  padding-bottom: 30px;
-  border: 1px solid #CCC
-}
-
-.border-left {
-    border-left-color: #FF9900;
-    border-left-width: 3px;
-    border-left-style: solid;
-    padding: 10px; 
-    padding-left: 25px;    
-  }
-
-.container {
-  margin-left: 0;
-  padding-left: 0;  
+#root > div .map {
+    margin: 0;
+    padding: 0;
 }

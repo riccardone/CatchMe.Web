@@ -7,7 +7,7 @@ class Footer extends Component {
       <footer className="navbar-fixed-bottom footer">
 					<div className="container">
 						<div className="row">
-							<p>@2018 <a href="http://www.dinuzzo.co.uk/" title="Riccardo Di Nuzzo personal website">Riccardo Di Nuzzo</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="https://github.com/riccardone/CatchMe" title="Source Code on GitHub">GitHub</a></p>
+							<p>@2019 <a href="http://www.dinuzzo.co.uk/" title="Riccardo Di Nuzzo personal website">Riccardo Di Nuzzo</a>&nbsp;&nbsp;-&nbsp;&nbsp;<a href="https://github.com/riccardone/CatchMe" title="Source Code on GitHub">GitHub</a></p>
 						</div>
 					</div>
 				</footer>

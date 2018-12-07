@@ -3,10 +3,7 @@ import { Route, Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import Home from './Home/Home';
-import Diary from './Diary/Diary';
 import Map from './Map/Map';
-import MyDiary from './Diary/MyDiary';
-import Repository from './Diary/Repository';
 import History from './History/History';
 import Callback from './Callback/Callback';
 import Auth from './Auth/Auth';
@@ -21,7 +18,7 @@ const handleAuthentication = (nextState, replace) => {
 };
 
 let store = createStore(function (event) {
-  console.log("ciao");
+  console.log("");
 });
 
 export const makeMainRoutes = () => {
@@ -31,8 +28,6 @@ export const makeMainRoutes = () => {
         <div>                    
           <Route exact path="/" render={(props) => <Home auth={auth} {...props} />} />
           <Route exact path="/home" render={(props) => <Home auth={auth} {...props} />} />
-          <Route exact path="/diary/:diaryname" render={(props) => <MyDiary {...props} />} />
-          <Route exact path="/diary" render={(props) => <Diary auth={auth} {...props} />} />          
           <Route exact path="/map" render={(props) => <Map auth={auth} {...props} />} />          
           <Route path="/callback" render={(props) => {
             handleAuthentication(props);
