@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
-import NavBarTop from '../navbar.top';
-import Footer from '../footer';
+import React, { Component } from "react";
+import NavBarTop from "../navbar.top";
+import Footer from "../footer";
 import ReactMapboxGl, { Layer, Feature, ZoomControl } from "react-mapbox-gl";
-import { ToastContainer, toast } from 'react-toastify';
-import './mapbox-v051.css';
-import './map.css';
+import { ToastContainer, toast } from "react-toastify";
+import "./mapbox-v051.css";
+import "./map.css";
 import PosMeIcon from "../images/geolocation_marker.png";
 import PosFriendIcon from "../images/geolocation_marker_red.png";
 
@@ -22,29 +22,28 @@ class Map extends Component {
       }
     };
     this.map = ReactMapboxGl({
-      accessToken: "pk.eyJ1IjoicmljY2FyZG9uZSIsImEiOiJqbXBIcDlFIn0.SuzRGlZwV_OJKyNH9DtJJg"
+      accessToken:
+        "pk.eyJ1IjoicmljY2FyZG9uZSIsImEiOiJqbXBIcDlFIn0.SuzRGlZwV_OJKyNH9DtJJg"
     });
     // preserve the initial state in a new object
     this.baseState = this.state;
   }
 
-  componentWillMount() {
-    var _this = this;
-    _this._locateUser();
-  }
+  componentWillMount() {}
 
   componentDidMount() {
-    // var _this = this;
-    // setInterval(function () {
-    //   _this._locateUser();     
-    // }, 3000);
+    var _this = this;
+    setInterval(function() {
+      _this._locateUser();
+    }, 3000);
+    // _this._locateUser();
   }
 
   login() {
     this.props.auth.login();
   }
 
-  onMapLoad = (map) => {
+  onMapLoad = map => {
     // map.addControl(Navigation({
     //   positionOptions: {
     //     enableHighAccuracy: true
@@ -52,32 +51,12 @@ class Map extends Component {
     //   trackUserLocation: true
     // }));
     //this._locateUser();
-    map.resize();
+    //map.resize();
   };
 
   _onClickMap(map, evt) {
     //console.log(evt.lngLat);
-    // var img = new Image(22, 22);
-    // img.src = PosFriendIcon;
     map.flyTo({ center: [evt.lngLat.lng, evt.lngLat.lat] });
-    //var ciccio = map.getlayers();
-    // map.addLayer({
-    //   id: 'friend',
-    //   type: 'symbol',
-    //   layout: { "icon-image": "myImage", "icon-allow-overlap": true },
-    //   images: ["myImage", img]
-    // source: {
-    //   type:'geojson',
-    //   data: {
-    //     type: 'Feature',
-    //     properties: {},
-    //     geometry: {
-    //       coordinates: [evt.lngLat.lng, evt.lngLat.lat]
-    //     }
-    //   }
-    // }
-    //feature: { coordinates: [evt.lngLat.lng, evt.lngLat.lat] }
-    // });
   }
 
   _locateUser() {
@@ -119,57 +98,52 @@ class Map extends Component {
       <div>
         <NavBarTop auth={this.props.auth} {...this.props} />
         <div className="container map">
-          <ToastContainer
-              hideProgressBar
-              newestOnTop
-          />
-          {
-            isAuthenticated() &&
+          <ToastContainer hideProgressBar newestOnTop />
+          {isAuthenticated() && (
             <Map
-              //{...this.state.viewport}                
-                style="mapbox://styles/mapbox/streets-v9"
-                containerStyle={{
+              //{...this.state.viewport}
+              style="mapbox://styles/mapbox/streets-v9"
+              containerStyle={{
                 height: "100vh",
                 width: "100vw"
               }}
-                movingMethod="flyTo"
-                center={center}
-                zoom={zoom}
-                onStyleLoad={this.onMapLoad}
-                onClick={this._onClickMap}
+              movingMethod="flyTo"
+              center={center}
+              zoom={zoom}
+              onStyleLoad={this.onMapLoad}
+              onClick={this._onClickMap}
             >
               <Layer
-                  type="symbol"
-                  id="marker"
-                  layout={{ "icon-image": "myImage", "icon-allow-overlap": true }}
-                  images={images}
+                type="symbol"
+                id="marker"
+                layout={{ "icon-image": "myImage", "icon-allow-overlap": true }}
+                images={images}
               >
                 <Feature coordinates={center} />
               </Layer>
               <Layer
-                  type="symbol"
-                  id="friend"
-                  layout={{ "icon-image": "myFriendImage", "icon-allow-overlap": true }}
-                  images={imagesForFriend}
+                type="symbol"
+                id="friend"
+                layout={{
+                  "icon-image": "myFriendImage",
+                  "icon-allow-overlap": true
+                }}
+                images={imagesForFriend}
               >
                 {/* <Feature coordinates={center} /> */}
               </Layer>
               <ZoomControl />
             </Map>
-          }
-          {
-            !isAuthenticated() &&
+          )}
+          {!isAuthenticated() && (
             <h4>
-              You are not logged in! Please{' '}
-              <a
-                  style={{ cursor: 'pointer' }}
-                  onClick={this.login.bind(this)}
-              >
+              You are not logged in! Please{" "}
+              <a style={{ cursor: "pointer" }} onClick={this.login.bind(this)}>
                 Log In
-                </a>
-              {' '}to continue.
-              </h4>
-          }
+              </a>{" "}
+              to continue.
+            </h4>
+          )}
         </div>
         <Footer />
       </div>
