@@ -1,14 +1,17 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import mapboxgl from "mapbox-gl";
+import moment from "moment";
 import Tooltip from "./components/tooltip";
 import NavBarTop from "../navbar.top";
 import Footer from "../footer";
 import { ToastContainer, toast } from "react-toastify";
+import Bus from "../bus";
 import "./mapbox-v051.css";
 import "./map.css";
 import PosMeIcon from "../images/geolocation_marker.png";
 import PosFriendIcon from "../images/geolocation_marker_red.png";
+var bus = Bus();
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoicmljY2FyZG9uZSIsImEiOiJqbXBIcDlFIn0.SuzRGlZwV_OJKyNH9DtJJg";
@@ -18,6 +21,7 @@ class Map2 extends Component {
     super(props);
     this.state = {
       viewport: {
+        center: [0,0],
         bearing: 0,
         pitch: 0,
         zoom: [9],
@@ -27,6 +31,7 @@ class Map2 extends Component {
     };
     // preserve the initial state in a new object
     this.baseState = this.state;
+    this.subscribeForEvents();
   }
 
   componentDidMount() {
@@ -34,7 +39,7 @@ class Map2 extends Component {
     this.map.addControl(new mapboxgl.AttributionControl(), "top-right");
     this.map.addControl(new mapboxgl.NavigationControl());
     var _this = this;
-    setInterval(function() {
+    setInterval(function () {
       _this._locateUser();
     }, 3000);
   }
@@ -43,18 +48,25 @@ class Map2 extends Component {
     this.map.remove();
   }
 
+  subscribeForEvents = () => {
+    var _this = this;    
+  }
+
   login() {
     this.props.auth.login();
   }
 
   _locateUser() {
     navigator.geolocation.getCurrentPosition(position => {
-      // var state = this.state.viewport;
-      // state.center = [position.coords.longitude, position.coords.latitude];
-      // this.setState({ viewport: state });
-      this.map.flyTo({
-        center: [position.coords.longitude, position.coords.latitude]
-      });
+      var state = this.state.viewport;      
+      if (state.center[0] !== position.coords.longitude || state.center[1] !== position.coords.latitude) {
+        state.center = [position.coords.longitude, position.coords.latitude];
+        bus.publish("PositionUpdated", { applies: moment.utc().toDate().toUTCString(), position: state.center});
+        this.setState({ viewport: state });
+        this.map.flyTo({
+          center: state.center
+        });
+      }
     });
   }
 

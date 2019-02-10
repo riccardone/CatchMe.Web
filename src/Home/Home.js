@@ -40,35 +40,30 @@ class Home extends Component {
               </Col>
               <Col xs={12} md={12} xl={12}>
                 {
-                  !isAuthenticated() && 
-                    <Button
-                        bsStyle="primary"
-                        className="btn-margin"
-                        onClick={this.login.bind(this)}
-                    >
-                      Log In
+                  !isAuthenticated() &&
+                  <Button
+                    bsStyle="primary"
+                    className="btn-margin"
+                    onClick={this.login.bind(this)}
+                  >
+                    Log In
                   </Button>
-                  
+
                 }
                 {
-                  isAuthenticated() && 
-                    <Button
-                        bsStyle="primary"
-                        className="btn-margin"
-                        onClick={this.goTo.bind(this, 'map')}
-                    >
-                      Map
+                  isAuthenticated() &&
+                  <Button
+                    bsStyle="primary"
+                    className="btn-margin"
+                    onClick={this.goTo.bind(this, 'map')}
+                  >
+                    Map
             </Button>
-                    //   <Button
-                    //     bsStyle="primary"
-                    //     className="btn-margin"
-                    //     onClick={this.logout.bind(this)}
-                    //   >
-                    //     Log Out
-                    // </Button>
-                  
                 }
               </Col>
+            </Row>
+            <Row>
+              <p>This web app is currently under developement...</p>
             </Row>
           </Grid>
         </div>

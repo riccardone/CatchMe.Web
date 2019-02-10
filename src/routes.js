@@ -8,6 +8,7 @@ import History from "./History/History";
 import Callback from "./Callback/Callback";
 import Auth from "./Auth/Auth";
 import history from "./history";
+import Repository from "./Map/Repository";
 
 const auth = new Auth();
 
