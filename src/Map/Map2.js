@@ -1,16 +1,14 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import mapboxgl from "mapbox-gl";
 import moment from "moment";
-import Tooltip from "./components/tooltip";
 import NavBarTop from "../navbar.top";
 import Footer from "../footer";
 import { ToastContainer, toast } from "react-toastify";
 import Bus from "../bus";
 import "./mapbox-v051.css";
 import "./map.css";
-import PosMeIcon from "../images/geolocation_marker.png";
-import PosFriendIcon from "../images/geolocation_marker_red.png";
+// import PosMeIcon from "../images/geolocation_marker.png";
+// import PosFriendIcon from "../images/geolocation_marker_red.png";
 var bus = Bus();
 
 mapboxgl.accessToken =
@@ -21,10 +19,10 @@ class Map2 extends Component {
     super(props);
     this.state = {
       viewport: {
-        center: [0,0],
+        center: [0, 0],
         bearing: 0,
         pitch: 0,
-        zoom: [9],
+        zoom: [18],
         container: "map",
         style: "mapbox://styles/mapbox/streets-v9"
       }
@@ -35,21 +33,21 @@ class Map2 extends Component {
   }
 
   componentDidMount() {
-    this.map = new mapboxgl.Map(this.state.viewport);
-    this.map.addControl(new mapboxgl.AttributionControl(), "top-right");
-    this.map.addControl(new mapboxgl.NavigationControl());
     var _this = this;
+    _this._initMap();
     setInterval(function () {
       _this._locateUser();
-    }, 3000);
+    }, 5000);
   }
 
   componentWillUnmount() {
-    this.map.remove();
+    if (this.map) {
+      this.map.remove();
+    }
   }
 
   subscribeForEvents = () => {
-    var _this = this;    
+
   }
 
   login() {
@@ -58,16 +56,65 @@ class Map2 extends Component {
 
   _locateUser() {
     navigator.geolocation.getCurrentPosition(position => {
-      var state = this.state.viewport;      
-      if (state.center[0] !== position.coords.longitude || state.center[1] !== position.coords.latitude) {
-        state.center = [position.coords.longitude, position.coords.latitude];
-        bus.publish("PositionUpdated", { applies: moment.utc().toDate().toUTCString(), position: state.center});
-        this.setState({ viewport: state });
-        this.map.flyTo({
-          center: state.center
-        });
-      }
+      this._updatePosition(position);
     });
+  }
+
+  _initMap = () => {
+    var _this = this;
+    navigator.geolocation.getCurrentPosition(position => {
+      var state = _this.state.viewport;
+      state.center = [position.coords.longitude, position.coords.latitude];
+      _this.setState({ viewport: state });
+      _this.map = new mapboxgl.Map(_this.state.viewport);
+      _this.map.addControl(new mapboxgl.AttributionControl(), "bottom-right");
+      _this.map.addControl(new mapboxgl.NavigationControl());
+
+      var geojson = {
+        type: 'FeatureCollection',
+        features: [{
+          type: 'Feature',
+          geometry: {
+            type: 'Point',
+            coordinates: state.center
+          },
+          properties: {
+            title: 'CatchMe',
+            description: 'You',                     
+            icon: {
+              'iconUrl': 'https://raw.githubusercontent.com/riccardone/CatchMe.Web/master/src/images/geolocation_marker.png',
+              'iconSize': [22, 22],
+              className: 'dot'
+            }
+          }
+        }]
+      };
+
+      geojson.features.forEach(function (marker) {
+        // create a HTML element for each feature
+        var el = document.createElement('div');
+        el.className = 'marker';
+        el.style.backgroundImage = 'url(' + marker.properties.icon.iconUrl + ')';        
+        el.style.width = marker.properties.icon.iconSize[0] + 'px';
+        el.style.height = marker.properties.icon.iconSize[1] + 'px';
+        // make a marker for each feature and add to the map
+        new mapboxgl.Marker(el)
+          .setLngLat(marker.geometry.coordinates)
+          .addTo(_this.map);
+      });
+    });
+  }
+
+  _updatePosition(position) {
+    var state = this.state.viewport;
+    if (state.center[0] !== position.coords.longitude || state.center[1] !== position.coords.latitude) {
+      state.center = [position.coords.longitude, position.coords.latitude];
+      bus.publish("PositionUpdated", { applies: moment.utc().toDate().toUTCString(), position: state.center });
+      this.setState({ viewport: state });
+      this.map.flyTo({
+        center: state.center
+      });
+    }
   }
 
   _updateViewport(coords) {
@@ -86,6 +133,15 @@ class Map2 extends Component {
       height: "90vh",
       width: "100vw",
       font: "500 20px/26px 'Helvetica Neue', Helvetica, Arial, Sans-serif"
+    };
+
+    const marker = {
+      backgroundImage: "url('mapbox-icon.png')",
+      backgroundSize: "cover",
+      width: "50px",
+      height: "50px",
+      borderRadius: "50%",
+      cursor: "pointer"
     };
 
     return (
