@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Navbar, Button } from 'react-bootstrap';
+import { Alert, Navbar, Button } from 'react-bootstrap';
 import './navbar.top.css';
 
 class NavBarTop extends Component {
@@ -34,28 +34,28 @@ class NavBarTop extends Component {
             </Button> */}
             {
               !isAuthenticated() && (
-                  <Button
-                    bsStyle="primary"
-                    className="btn-margin"
-                    onClick={this.login.bind(this)}
-                  >
-                    Log In
+                <Button
+                  bsStyle="primary"
+                  className="btn-margin"
+                  onClick={this.login.bind(this)}
+                >
+                  Log In
                   </Button>
-                )
+              )
             }
             {
               isAuthenticated() && (
-                  <Button
-                    bsStyle="primary"
-                    className="btn-margin"
-                    onClick={this.logout.bind(this)}
-                  >
-                    Log Out
-                  </Button>
-                )
+                <Button
+                  bsStyle="primary"
+                  className="btn-margin"
+                  onClick={this.logout.bind(this)}
+                >
+                  Log Out
+                        </Button>
+              )
             }
           </Navbar.Header>
-        </Navbar>    
+        </Navbar>
       </div>
     );
   }

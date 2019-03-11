@@ -8,7 +8,13 @@ class Home extends Component {
   constructor(props) {
     super(props);
     // preserve the initial state in a new object
-    this.baseState = this.state;
+    this.baseState = this.state;    
+  }
+
+  componentDidMount() {
+    if (this.props.auth.isAuthenticated()) {
+      this.props.history.replace('map/' + localStorage.getItem('correlationId'));     
+    }
   }
 
   login() {
@@ -49,16 +55,6 @@ class Home extends Component {
                     Log In
                   </Button>
 
-                }
-                {
-                  isAuthenticated() &&
-                  <Button
-                    bsStyle="primary"
-                    className="btn-margin"
-                    onClick={this.goTo.bind(this, 'map')}
-                  >
-                    Map
-            </Button>
                 }
               </Col>
             </Row>

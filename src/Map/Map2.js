@@ -10,6 +10,7 @@ import "./map.css";
 // import PosMeIcon from "../images/geolocation_marker.png";
 // import PosFriendIcon from "../images/geolocation_marker_red.png";
 var bus = Bus();
+var friendSessionOn = false;
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoicmljY2FyZG9uZSIsImEiOiJqbXBIcDlFIn0.SuzRGlZwV_OJKyNH9DtJJg";
@@ -33,11 +34,7 @@ class Map2 extends Component {
   }
 
   componentDidMount() {
-    var _this = this;
-    _this._initMap();
-    setInterval(function () {
-      _this._locateUser();
-    }, 5000);
+    this._initMap();
   }
 
   componentWillUnmount() {
@@ -47,7 +44,12 @@ class Map2 extends Component {
   }
 
   subscribeForEvents = () => {
-
+    var _this = this;
+    bus.subscribe("UserAuthenticated", function () {
+      setInterval(function () {
+        _this._locateUser();
+      }, 5000);
+    });
   }
 
   login() {
@@ -55,20 +57,23 @@ class Map2 extends Component {
   }
 
   _locateUser() {
-    navigator.geolocation.getCurrentPosition(position => {
-      this._updatePosition(position);
-    });
+    if (friendSessionOn) {
+      navigator.geolocation.getCurrentPosition(position => {
+        this._updatePosition(position);
+      });
+    }
   }
 
   _initMap = () => {
     var _this = this;
     navigator.geolocation.getCurrentPosition(position => {
       var state = _this.state.viewport;
-      state.center = [position.coords.longitude, position.coords.latitude];
-      _this.setState({ viewport: state });
+      this._updatePosition(position);
       _this.map = new mapboxgl.Map(_this.state.viewport);
-      _this.map.addControl(new mapboxgl.AttributionControl(), "bottom-right");
       _this.map.addControl(new mapboxgl.NavigationControl());
+      this.map.flyTo({
+        center: state.center
+      });
 
       var geojson = {
         type: 'FeatureCollection',
@@ -80,7 +85,7 @@ class Map2 extends Component {
           },
           properties: {
             title: 'CatchMe',
-            description: 'You',                     
+            description: 'You',
             icon: {
               'iconUrl': 'https://raw.githubusercontent.com/riccardone/CatchMe.Web/master/src/images/geolocation_marker.png',
               'iconSize': [22, 22],
@@ -94,7 +99,7 @@ class Map2 extends Component {
         // create a HTML element for each feature
         var el = document.createElement('div');
         el.className = 'marker';
-        el.style.backgroundImage = 'url(' + marker.properties.icon.iconUrl + ')';        
+        el.style.backgroundImage = 'url(' + marker.properties.icon.iconUrl + ')';
         el.style.width = marker.properties.icon.iconSize[0] + 'px';
         el.style.height = marker.properties.icon.iconSize[1] + 'px';
         // make a marker for each feature and add to the map
@@ -109,11 +114,16 @@ class Map2 extends Component {
     var state = this.state.viewport;
     if (state.center[0] !== position.coords.longitude || state.center[1] !== position.coords.latitude) {
       state.center = [position.coords.longitude, position.coords.latitude];
-      bus.publish("PositionUpdated", { applies: moment.utc().toDate().toUTCString(), position: state.center });
-      this.setState({ viewport: state });
-      this.map.flyTo({
-        center: state.center
+      bus.publish("PositionUpdated", { 
+        applies: moment.utc().toDate().toUTCString(), 
+        position: state.center, 
+        accuracy: position.coords.accuracy, 
+        altitude: position.coords.altitude, 
+        heading: position.coords.heading,
+        speed: position.coords.speed,
+        timestamp: position.timestamp
       });
+      this.setState({ viewport: state });
     }
   }
 
@@ -148,7 +158,7 @@ class Map2 extends Component {
       <div>
         <NavBarTop auth={this.props.auth} {...this.props} />
         <div className="container map">
-          <ToastContainer hideProgressBar newestOnTop />
+          <ToastContainer hideProgressBar newestOnTop />         
           {isAuthenticated() && <div style={style} id={"map"} />}
           {!isAuthenticated() && (
             <h4>

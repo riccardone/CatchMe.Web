@@ -28,31 +28,31 @@ export const makeMainRoutes = () => {
       <Router history={history} component={Home}>
         <div>
           <Route
-            exact
-            path="/"
-            render={props => <Home auth={auth} {...props} />}
+              exact
+              path="/"
+              render={props => <Home auth={auth} {...props} />}
           />
           <Route
-            exact
-            path="/home"
-            render={props => <Home auth={auth} {...props} />}
+              exact
+              path="/home"
+              render={props => <Home auth={auth} {...props} />}
           />
           <Route
-            exact
-            path="/map"
-            render={props => <Map auth={auth} {...props} />}
+              exact
+              path="/map/:shareid"
+              render={props => <Map auth={auth} {...props} />}
           />
           <Route
-            path="/callback"
-            render={props => {
+              path="/callback"
+              render={props => {
               handleAuthentication(props);
               return <Callback {...props} />;
             }}
           />
           <Route
-            path="/history"
-            render={props => <History auth={auth} {...props} />}
-          />
+              path="/history"
+              render={props => <History auth={auth} {...props} />}
+          />          
         </div>
       </Router>
     </Provider>
