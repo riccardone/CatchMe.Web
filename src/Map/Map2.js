@@ -34,7 +34,16 @@ class Map2 extends Component {
   }
 
   componentDidMount() {
-    this._initMap();
+    if (this.props.auth.isAuthenticated()) {
+      this._initMapForAuthenticatedUser();
+    } else {
+      this._initMap();
+      bus.subscribe("PositionReceived", (data) => {
+        // TODO set the sprite and fly to the position on the map
+        var center = data;
+      });
+      bus.publish("SubscribePositionRequested", 'ac80bafa-991b-59e7-b345-228531889f1c'); // TODO get the id from the uri
+    }
   }
 
   componentWillUnmount() {
@@ -64,13 +73,13 @@ class Map2 extends Component {
     }
   }
 
-  _initMap = () => {
+  _initMapForAuthenticatedUser = () => {
     var _this = this;
     navigator.geolocation.getCurrentPosition(position => {
-      var state = _this.state.viewport;
       this._updatePosition(position);
       _this.map = new mapboxgl.Map(_this.state.viewport);
       _this.map.addControl(new mapboxgl.NavigationControl());
+      var state = _this.state.viewport;
       this.map.flyTo({
         center: state.center
       });
@@ -110,15 +119,21 @@ class Map2 extends Component {
     });
   }
 
+  _initMap = () => {
+    var _this = this;
+    _this.map = new mapboxgl.Map(_this.state.viewport);
+    _this.map.addControl(new mapboxgl.NavigationControl());
+  }
+
   _updatePosition(position) {
     var state = this.state.viewport;
     if (state.center[0] !== position.coords.longitude || state.center[1] !== position.coords.latitude) {
       state.center = [position.coords.longitude, position.coords.latitude];
-      bus.publish("PositionUpdated", { 
-        applies: moment.utc().toDate().toUTCString(), 
-        position: state.center, 
-        accuracy: position.coords.accuracy, 
-        altitude: position.coords.altitude, 
+      bus.publish("PositionUpdated", {
+        applies: moment.utc().toDate().toUTCString(),
+        position: state.center,
+        accuracy: position.coords.accuracy,
+        altitude: position.coords.altitude,
         heading: position.coords.heading,
         speed: position.coords.speed,
         timestamp: position.timestamp
@@ -158,9 +173,10 @@ class Map2 extends Component {
       <div>
         <NavBarTop auth={this.props.auth} {...this.props} />
         <div className="container map">
-          <ToastContainer hideProgressBar newestOnTop />         
-          {isAuthenticated() && <div style={style} id={"map"} />}
-          {!isAuthenticated() && (
+          <ToastContainer hideProgressBar newestOnTop />
+          <div style={style} id={"map"} />
+          {/* {isAuthenticated() && <div style={style} id={"map"} />} */}
+          {/* {!isAuthenticated() && (
             <h4>
               You are not logged in! Please{" "}
               <a style={{ cursor: "pointer" }} onClick={this.login.bind(this)}>
@@ -168,7 +184,7 @@ class Map2 extends Component {
               </a>{" "}
               to continue.
             </h4>
-          )}
+          )} */}
         </div>
         <Footer />
       </div>

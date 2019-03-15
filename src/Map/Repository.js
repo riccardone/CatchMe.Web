@@ -8,7 +8,26 @@ var interval = 3000;
 var apiLink = process.env.NODE_ENV === 'production' ? "http://api.catchme.info:5001" : "http://catchme-api:5001";
 
 bus.subscribe("PositionUpdated", handlePositionUpdated);
+bus.subscribe("SubscribePositionRequested", handleSubscribePositionRequested);
 const source = 'catchme.info';
+
+function handleSubscribePositionRequested(data) {
+    setInterval(() => {
+        fetch(apiLink + "/api/v1/positions/" + data, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            }
+        }).then((res) => {
+            if (res.ok) {
+                bus.publish("PositionReceived", res);
+            }            
+        }).catch(error => {
+            console.log(error);
+        });
+    }, 3000);
+}
 
 function handlePositionUpdated(state) {
     var messageBody = buildBody(state);
@@ -47,8 +66,8 @@ function buildBody(state) {
     return {
         longitude: state.position[0],
         latitude: state.position[1],
-        accuracy: state.accuracy, 
-        altitude: state.altitude, 
+        accuracy: state.accuracy,
+        altitude: state.altitude,
         heading: state.heading,
         speed: state.speed,
         timestamp: state.timestamp,
