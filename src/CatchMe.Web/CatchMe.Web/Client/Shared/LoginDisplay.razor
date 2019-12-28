@@ -1,0 +1,15 @@
+﻿@inject IAuthenticationService authService
+
+<AuthorizeView>
+    <Authorized>
+        <NavLink class="nav-link" href="javascript:void(0)" @onclick="@(async ()=> await authService.LogOut())">
+            <span class="oi oi-account-logout" aria-hidden="true"></span> Logout
+        </NavLink>
+        <span class="username">User: @authService.User.Name&nbsp;</span>        
+    </Authorized>
+    <NotAuthorized>
+        <NavLink class="nav-link" href="javascript:void(0)" @onclick="authService.Authorize">
+            <span class="oi oi-account-login" aria-hidden="true"></span>  Login
+        </NavLink>
+    </NotAuthorized>
+</AuthorizeView>
