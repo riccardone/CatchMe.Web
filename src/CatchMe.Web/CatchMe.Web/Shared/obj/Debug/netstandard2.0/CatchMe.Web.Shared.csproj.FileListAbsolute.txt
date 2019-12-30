@@ -1,8 +1,0 @@
-C:\code\tests\CatchMe.Web\src\CatchMe.Web\CatchMe.Web\Shared\bin\Debug\netstandard2.0\CatchMe.Web.Shared.deps.json
-C:\code\tests\CatchMe.Web\src\CatchMe.Web\CatchMe.Web\Shared\bin\Debug\netstandard2.0\CatchMe.Web.Shared.dll
-C:\code\tests\CatchMe.Web\src\CatchMe.Web\CatchMe.Web\Shared\bin\Debug\netstandard2.0\CatchMe.Web.Shared.pdb
-C:\code\tests\CatchMe.Web\src\CatchMe.Web\CatchMe.Web\Shared\obj\Debug\netstandard2.0\CatchMe.Web.Shared.AssemblyInfoInputs.cache
-C:\code\tests\CatchMe.Web\src\CatchMe.Web\CatchMe.Web\Shared\obj\Debug\netstandard2.0\CatchMe.Web.Shared.AssemblyInfo.cs
-C:\code\tests\CatchMe.Web\src\CatchMe.Web\CatchMe.Web\Shared\obj\Debug\netstandard2.0\CatchMe.Web.Shared.dll
-C:\code\tests\CatchMe.Web\src\CatchMe.Web\CatchMe.Web\Shared\obj\Debug\netstandard2.0\CatchMe.Web.Shared.pdb
-C:\code\tests\CatchMe.Web\src\CatchMe.Web\CatchMe.Web\Shared\obj\Debug\netstandard2.0\CatchMe.Web.Shared.csprojAssemblyReference.cache

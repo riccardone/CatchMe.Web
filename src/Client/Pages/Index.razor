@@ -1,0 +1,28 @@
+﻿@using CatchMe.Web.Client.I18nText
+
+@page "/"
+@inject IJSRuntime JSRuntime
+@inject Toolbelt.Blazor.I18nText.I18nText I18nText
+
+<h1>@index.header</h1>
+
+<span>The current datetime is @DateTime.Now</span>
+<span>Current culture @_language</span>
+<button class="btn btn-primary" @onclick="SetLanguage">Set language</button>
+
+@code {
+    string _language;
+
+    public async Task SetLanguage()
+    {
+        var locale = await JSRuntime.InvokeAsync<string>("getBrowserLocale");
+        _language = locale;
+    }
+
+    index index = new index();
+
+    protected override async Task OnInitializedAsync()
+    {
+        index = await I18nText.GetTextTableAsync<index>(this);
+    }
+}
