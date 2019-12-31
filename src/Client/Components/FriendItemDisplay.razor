@@ -1,0 +1,22 @@
+﻿@using CatchMe.Web.Shared
+
+<div class="cart-item">
+    <div class="info">
+        <p>@Data.PictureUrl</p>
+        <p>@Data.DisplayName</p>
+    </div>
+    <div class="item-summary">
+        @if (Data.FriendSessionActive && !Data.Blocked && !Data.HeBlockedMe)
+        {
+            <strong>Connected</strong>
+        }
+        else 
+        {
+            <button class="btn btn-primary">Connect</button>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter] public Friend Data { get; set; }
+}

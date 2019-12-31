@@ -1,13 +1,15 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <RazorLangVersion>3.0</RazorLangVersion>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Blazor-Auth0-ClientSide" Version="2.0.0-Preview4" />
     <PackageReference Include="Blazored.Localisation" Version="1.1.10" />
+    <PackageReference Include="Google.Protobuf" Version="3.11.2" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.26.0" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.1.0-preview3.19555.2" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="3.1.0-preview3.19555.2" PrivateAssets="all" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.1.0-preview3.19555.2" />
@@ -19,13 +21,10 @@
     <ProjectReference Include="..\Shared\CatchMe.Web.Shared.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Watch Remove="i18ntext\index.en.json" />
+    <Watch Remove="i18ntext\site.it.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Remove="i18ntext\index.en.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <Watch Remove="i18ntext\index.it.json" />
+    <Watch Remove="i18ntext\site.en.json" />
   </ItemGroup>
 
 </Project>

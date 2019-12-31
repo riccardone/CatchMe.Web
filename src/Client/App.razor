@@ -1,16 +1,37 @@
-﻿<Router AppAssembly="@typeof(Program).Assembly">
-    <Found Context="routeData">
-        <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)">
-            <Authorizing>
-                <p>>Determining session state, please wait...</p>
-            </Authorizing>
-            <NotAuthorized>
-                <h1>Sorry</h1>
-                <p>You're not authorized to reach this page. You may need to log in as a different user.</p>
-            </NotAuthorized>
-        </AuthorizeRouteView>
-    </Found>
-    <NotFound>
-        <p>Sorry, there's nothing at this address.</p>
-    </NotFound>
-</Router>
+﻿@using CatchMe.Web.Client.I18nText
+@inject UserService UserService
+@inject Toolbelt.Blazor.I18nText.I18nText I18nText
+
+<header>
+    <span>@site.header</span>
+</header>
+
+<main>
+    <button class="btn btn-primary" @onclick="@(() => { _isInvitingFriend = false; })">Invite friend</button>
+    @foreach (var friend in UserService.Friends)
+    {
+        <FriendItemDisplay @key="friend.FriendSessionId" Data="friend" />
+    }
+</main>
+
+<footer>
+    <span>footer</span>
+</footer>
+
+@if (_isInvitingFriend)
+{
+    <Overlay>
+        <p>Invite a friend</p>
+        <button @onclick="@(() => { _isInvitingFriend = false; })">Cancel</button>
+    </Overlay>
+}
+
+@code {
+    bool _isInvitingFriend;
+    site site = new site();
+
+    protected override async Task OnInitializedAsync()
+    {
+        site = await I18nText.GetTextTableAsync<site>(this);
+    }
+}

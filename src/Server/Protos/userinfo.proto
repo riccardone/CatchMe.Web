@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option csharp_namespace = "CatchMe.Web.Server.Protos";
+
+package UserInfo;
+
+service UserInfo {
+	rpc CurrentUser (CurrentUserRequest) returns (CurrentUserReply);	
+}
+
+message CurrentUserRequest {
+	string searchQuery = 1;
+}
+
+message CurrentUserReply {
+	string DisplayName = 1;
+	Position LastPosition = 2;
+	repeated FriendItem items = 3;
+}
+
+message FriendItem {
+	string EAN = 1;
+	string name = 2;
+}
+
+message Position {
+	float longitude = 1;
+	float latitude = 2;
+} 
