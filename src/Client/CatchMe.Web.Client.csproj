@@ -26,5 +26,8 @@
   <ItemGroup>
     <Watch Remove="i18ntext\site.en.json" />
   </ItemGroup>
+  <ItemGroup>
+    <Protobuf Include="..\CatchMe.Web.Server\Protos\userinfo.proto" GrpcServices="Client" />
+  </ItemGroup>
 
 </Project>
