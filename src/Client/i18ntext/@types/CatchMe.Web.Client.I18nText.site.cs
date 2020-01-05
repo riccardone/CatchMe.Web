@@ -7,19 +7,223 @@ namespace CatchMe.Web.Client.I18nText
 
         public string this[string key] => global::Toolbelt.Blazor.I18nText.I18nTextExtensions.GetFieldValue(this, key);
 
-        /// <summary>"Geolocation app to find your friends"</summary>
-        public string altlogo;
+        /// <summary>"Accept"</summary>
+        public string accept;
 
-        /// <summary>"Geolocation app to find your friends"</summary>
-        public string header;
+        /// <summary>"Add Meeting Point"</summary>
+        public string addMeetingPoint;
 
-        /// <summary>"Login"</summary>
-        public string login;
-
-        /// <summary>"Logout"</summary>
-        public string logout;
+        /// <summary>"Altitude"</summary>
+        public string altitude;
 
         /// <summary>"Find your friends"</summary>
-        public string subheader;
+        public string appSubtitle;
+
+        /// <summary>"Catch Me"</summary>
+        public string appTitle;
+
+        /// <summary>"Back"</summary>
+        public string back;
+
+        /// <summary>"Blocked"</summary>
+        public string blocked;
+
+        /// <summary>"Block this contact"</summary>
+        public string blockFriend;
+
+        /// <summary>"Cancel"</summary>
+        public string cancelRequest;
+
+        /// <summary>"Connect"</summary>
+        public string connect;
+
+        /// <summary>" has accepted your connection request"</summary>
+        public string connectionAccepted;
+
+        /// <summary>"There is a problem with the connection. Retry later."</summary>
+        public string connectionError;
+
+        /// <summary>"There is a connection issue at the moment. Try later."</summary>
+        public string connectionNotAvailable;
+
+        /// <summary>"This user wants to connect with you. Tap to make a choice."</summary>
+        public string connectionRequestReceived;
+
+        /// <summary>"A connection request is sent..."</summary>
+        public string connectionRequestSent;
+
+        /// <summary>"Your current address is"</summary>
+        public string currentAddress;
+
+        /// <summary>"Disconnect"</summary>
+        public string disconnect;
+
+        /// <summary>"Distance"</summary>
+        public string distance;
+
+        /// <summary>"Distance is not available"</summary>
+        public string distanceNotAvailable;
+
+        /// <summary>"Catch Me is a mobile application available for all platforms. You can install or get more information how to use Catch Me from the following link"</summary>
+        public string emailFooter;
+
+        /// <summary>"We are not receiving the position of this contact"</summary>
+        public string friendConnectionError;
+
+        /// <summary>"friends"</summary>
+        public string friends;
+
+        /// <summary>"Ghost"</summary>
+        public string ghostMode;
+
+        /// <summary>"Ghost Mode (hide yourself)"</summary>
+        public string ghostModeLabel;
+
+        /// <summary>"Error connecting to your geolocation system"</summary>
+        public string gpsError;
+
+        /// <summary>"Hey, let&apos;s meet using CatchMe http://www.catchme.info"</summary>
+        public string inviteFriendMessage;
+
+        /// <summary>"Send position"</summary>
+        public string inviteFriends;
+
+        /// <summary>"Last seen"</summary>
+        public string lastSeen;
+
+        /// <summary>"Log in"</summary>
+        public string login;
+
+        /// <summary>"Log out"</summary>
+        public string logOut;
+
+        /// <summary>"Message"</summary>
+        public string message;
+
+        /// <summary>"My current position is"</summary>
+        public string myCurrentPosition;
+
+        /// <summary>"Can&apos;t connect"</summary>
+        public string networkNotAvailable;
+
+        /// <summary>"We will never post on your wall"</summary>
+        public string neverPostOnTheWall;
+
+        /// <summary>"No"</summary>
+        public string no;
+
+        /// <summary>"Welcome to the CatchMe app. There are no friends using this app yet. Send an invitation."</summary>
+        public string noFriends;
+
+        /// <summary>"Not connected"</summary>
+        public string notConnected;
+
+        /// <summary>"Online now"</summary>
+        public string online;
+
+        /// <summary>"Write your friend&apos;s email"</summary>
+        public string placeholderEmail;
+
+        /// <summary>"Write your message (optional)"</summary>
+        public string placeholderMessage;
+
+        /// <summary>"Write a subject"</summary>
+        public string placeholderSubject;
+
+        /// <summary>"Ping"</summary>
+        public string poke;
+
+        /// <summary>"Pong"</summary>
+        public string pokeBack;
+
+        /// <summary>"sent a Ping to you"</summary>
+        public string pokedMessageForNotification;
+
+        /// <summary>"sent a Pong back to you"</summary>
+        public string pokePokedMessageBack;
+
+        /// <summary>"Ping received"</summary>
+        public string pokeReceivedMessage;
+
+        /// <summary>"Ping sent"</summary>
+        public string pokeSentMessage;
+
+        /// <summary>"Connection request received, click &apos;Accept&apos; to connect with this friend"</summary>
+        public string requestReceived;
+
+        /// <summary>"Connection request sent"</summary>
+        public string requestSent;
+
+        /// <summary>"Share your position by E-Mail"</summary>
+        public string sendInviteHeader;
+
+        /// <summary>"Message sent"</summary>
+        public string sendInviteSuccess;
+
+        /// <summary>"Hey, "</summary>
+        public string sendPositionMessage;
+
+        /// <summary>"Speed"</summary>
+        public string speed;
+
+        /// <summary>"Start location services"</summary>
+        public string startLocationService;
+
+        /// <summary>"Stop location services"</summary>
+        public string stopLocationService;
+
+        /// <summary>"Subject"</summary>
+        public string subject;
+
+        /// <summary>"Catch Me"</summary>
+        public string subjectFriendMessage;
+
+        /// <summary>"Syncing..."</summary>
+        public string synchronizing;
+
+        /// <summary>"days ago"</summary>
+        public string timeDaysAgo;
+
+        /// <summary>"hours ago"</summary>
+        public string timeHours;
+
+        /// <summary>"minutes ago"</summary>
+        public string timeMinutes;
+
+        /// <summary>"now"</summary>
+        public string timeNow;
+
+        /// <summary>"today"</summary>
+        public string timeToday;
+
+        /// <summary>"yesterday"</summary>
+        public string timeYesterday;
+
+        /// <summary>"To"</summary>
+        public string to;
+
+        /// <summary>"Unblock this contact"</summary>
+        public string unBlockFriend;
+
+        /// <summary>"Email is required!"</summary>
+        public string validationErrorEmail;
+
+        /// <summary>"Message text is required!"</summary>
+        public string validationErrorMessage;
+
+        /// <summary>"Subject text is required!"</summary>
+        public string validationErrorSubject;
+
+        /// <summary>"View Privacy Policy"</summary>
+        public string viewPrivacyPolicy;
+
+        /// <summary>" wants to connect with you"</summary>
+        public string willingToConnect;
+
+        /// <summary>"Yes"</summary>
+        public string yes;
+
+        /// <summary>"You"</summary>
+        public string you;
     }
 }

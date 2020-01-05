@@ -1,22 +1,20 @@
 ﻿@inject IAuthenticationService authService
-
-<AuthorizeView>
-    <Authorized>
-        <NavLink class="nav-link" href="javascript:void(0)" @onclick="@(async ()=> await authService.LogOut())">
-            <span class="oi oi-account-logout" aria-hidden="true"></span> @Logout
-        </NavLink>
-        <span class="username">User: @authService.User.Name&nbsp;</span>
-    </Authorized>
-    <NotAuthorized>
-        <img src="images/catchme_logo_welcome_fb_color_small.png" alt="@AltTextLogo" />
-        <NavLink class="nav-link" href="javascript:void(0)" @onclick="authService.Authorize">
-            <span class="oi oi-account-login" aria-hidden="true"></span>  @Login
-        </NavLink>
-    </NotAuthorized>
-</AuthorizeView>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <p><img src="images/catchme_logo_welcome_fb_color_small.png" /></p>
+            <p>@AppSubtitleText</p>
+            <p><button class="btn btn-primary" @onclick="authService.Authorize">@LoginText</button></p>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">@GhostModeText</label>
+            </div>
+        </div>
+    </div>
+</div>
 
 @code {
-    [Parameter] public string Login { get; set; }
-    [Parameter] public string Logout { get; set; }
-    [Parameter] public string AltTextLogo { get; set; }
+    [Parameter] public string LoginText { get; set; }
+    [Parameter] public string AppSubtitleText { get; set; }
+    [Parameter] public string GhostModeText { get; set; }
 }

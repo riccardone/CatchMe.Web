@@ -1,0 +1,30 @@
+﻿@inject UserService userService
+
+<header>
+    <UserInfoDisplay LogoutText="@LogoutText" />
+</header>
+
+<main>    
+    @foreach (var friend in userService.Friends)
+    {
+        <FriendItemDisplay @key="friend.FriendSessionId" Data="friend" />
+    }
+</main>
+
+<footer>    
+    <button class="btn btn-primary" @onclick="@(() => { _isInvitingFriend = false; })">Invite friend</button>
+</footer>
+
+@if (_isInvitingFriend)
+{
+    <Overlay>
+        <p>Invite a friend</p>
+        <button @onclick="@(() => { _isInvitingFriend = false; })">Cancel</button>
+    </Overlay>
+}
+
+@code {
+    bool _isInvitingFriend;
+    [Parameter] public string SubtitleText { get; set; }
+    [Parameter] public string LogoutText { get; set; }
+}

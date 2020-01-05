@@ -1,10 +1,9 @@
-using System;
-using System.Net.Http;
+using System.Collections.Generic;
 using Blazor.Auth0;
-using Blazor.Auth0.Models;
 using Blazored.Localisation;
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using TG.Blazor.IndexedDB;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
 
 namespace CatchMe.Web.Client
@@ -38,11 +37,11 @@ namespace CatchMe.Web.Client
             });
 
             // Policy based authorization, learn more here: https://docs.microsoft.com/en-us/aspnet/core/security/authorization/policies?view=aspnetcore-3.1
-            //services.AddAuthorizationCore(options =>
-            //{
-            //    options.AddPolicy("read:weather_forecast", policy => policy.RequireClaim("permissions", "read:weather_forecast"));
-            //    options.AddPolicy("execute:increment_counter", policy => policy.RequireClaim("permissions", "execute:increment_counter"));
-            //});
+            services.AddAuthorizationCore(options =>
+            {
+                options.AddPolicy("read:weather_forecast", policy => policy.RequireClaim("permissions", "read:weather_forecast"));
+                options.AddPolicy("execute:increment_counter", policy => policy.RequireClaim("permissions", "execute:increment_counter"));
+            });
             services.AddI18nText<Startup>();
             //services.AddScoped(serviceProvider =>
             //{
@@ -50,6 +49,21 @@ namespace CatchMe.Web.Client
             //    return new .InventoryClient(new GrpcWebCallInvoker(httpClient));
             //});
             services.AddScoped<UserService>();
+            services.AddIndexedDB(dbStore =>
+            {
+                dbStore.DbName = "CatchMeDb"; //example name
+                dbStore.Version = 1;
+
+                dbStore.Stores.Add(new StoreSchema
+                {
+                    Name = "Friend",
+                    PrimaryKey = new IndexSpec { Name = "id", KeyPath = "id", Auto = true },
+                    Indexes = new List<IndexSpec>
+                    {
+                        new IndexSpec{Name="DisplayName", KeyPath = "DisplayName", Auto=false}
+                    }
+                });
+            });
         }
 
         public void Configure(IComponentsApplicationBuilder app)

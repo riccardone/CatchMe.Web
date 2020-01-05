@@ -1,33 +1,18 @@
 ﻿@using CatchMe.Web.Client.I18nText
-@inject UserService UserService
 @inject Toolbelt.Blazor.I18nText.I18nText I18nText
 
-<header>
-    <span>@site.header</span>
-</header>
+<CascadingAuthenticationState>
+    <AuthorizeView>
+        <Authorized>            
+            <AuthenticatedDisplay SubtitleText="@site.appSubtitle" LogoutText="@site.logOut" />
+        </Authorized>
+        <NotAuthorized>
+            <NonauthenticatedDisplay SubtitleText="@site.appSubtitle" GhostModeText="@site.ghostModeLabel" LoginText="@site.login" />
+        </NotAuthorized>
+    </AuthorizeView>
+</CascadingAuthenticationState>
 
-<main>
-    <button class="btn btn-primary" @onclick="@(() => { _isInvitingFriend = false; })">Invite friend</button>
-    @foreach (var friend in UserService.Friends)
-    {
-        <FriendItemDisplay @key="friend.FriendSessionId" Data="friend" />
-    }
-</main>
-
-<footer>
-    <span>footer</span>
-</footer>
-
-@if (_isInvitingFriend)
-{
-    <Overlay>
-        <p>Invite a friend</p>
-        <button @onclick="@(() => { _isInvitingFriend = false; })">Cancel</button>
-    </Overlay>
-}
-
-@code {
-    bool _isInvitingFriend;
+@code {    
     site site = new site();
 
     protected override async Task OnInitializedAsync()
