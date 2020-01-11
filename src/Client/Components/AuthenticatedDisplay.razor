@@ -5,6 +5,7 @@
 </header>
 
 <main>    
+    <YouOnMap OnClick="ClickHandler" />
     @foreach (var friend in userService.Friends)
     {
         <FriendItemDisplay @key="friend.FriendSessionId" Data="friend" />
@@ -27,4 +28,9 @@
     bool _isInvitingFriend;
     [Parameter] public string SubtitleText { get; set; }
     [Parameter] public string LogoutText { get; set; }
+
+    void ClickHandler(string message)
+    {
+
+    }
 }
