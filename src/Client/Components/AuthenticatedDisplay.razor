@@ -1,14 +1,18 @@
-﻿@inject UserService userService
+﻿
 
 <header>
     <UserInfoDisplay LogoutText="@LogoutText" />
 </header>
 
-<main>    
-    <YouOnMap OnClick="ClickHandler" />
-    @foreach (var friend in userService.Friends)
+<main>
+    @if (!_showMap)
     {
-        <FriendItemDisplay @key="friend.FriendSessionId" Data="friend" />
+        <YouOnMap OnClick="YouOnTheMapHandler" />
+        <FriendsDisplay />
+    }
+    else
+    {
+        <MapDisplay />
     }
 </main>
 
@@ -26,11 +30,12 @@
 
 @code {
     bool _isInvitingFriend;
+    bool _showMap;
     [Parameter] public string SubtitleText { get; set; }
     [Parameter] public string LogoutText { get; set; }
 
-    void ClickHandler(string message)
+    void YouOnTheMapHandler()
     {
-
+        _showMap = true;
     }
 }

@@ -8,11 +8,19 @@
         <p>@authService.User.GivenName</p>
     </div>
     <div class="item-summary">
-        <button class="btn btn-primary" @onclick="@(() => OnClick.InvokeAsync("Hello from ChildComponent"))">You on map</button>
+        <button class="btn btn-primary" @onclick="OnClickInternal">You on map</button>
     </div>
 </div>
 
 @code{
     [Parameter]
-    public EventCallback<string> OnClick { get; set; }
+    public EventCallback OnClick { get; set; }
+
+    private void OnClickInternal()
+    {
+        if (OnClick.HasDelegate)
+        {
+            OnClick.InvokeAsync(null);
+        }
+    }
 }

@@ -1,0 +1,6 @@
+﻿@inject UserService userService
+
+@foreach (var friend in userService.Friends)
+{
+    <FriendItemDisplay @key="friend.FriendSessionId" Data="friend" />
+}
