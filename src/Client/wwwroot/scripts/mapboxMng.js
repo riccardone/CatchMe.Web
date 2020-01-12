@@ -7,6 +7,10 @@
             center: [34.047, 63.779],
             zoom: 4.41
         });
+        window.myMap.on('load', function () {
+            myMap.resize();
+        });
+
         return;
     }
 };

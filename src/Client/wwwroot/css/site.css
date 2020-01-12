@@ -54,14 +54,6 @@ app {
     background-color: #d0d0d0;
 }
 
-#map {
-    /*position: absolute;*/
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-}
-
 header {
     background-color: var(--header-footer-bg);
     position: fixed;
@@ -285,6 +277,15 @@ footer button, .overlay button {
     position: absolute;
     right: 0.75rem;
     top: 0.5rem;
+}
+
+#map {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    top: var(--header-height);
+    bottom: var(--footer-height);
 }
 
 @keyframes SlideInFooter {
