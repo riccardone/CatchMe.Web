@@ -17,14 +17,13 @@
                     trackUserLocation: true
                 });
                 geoLocate.on('geolocate', function (e) {
-                    myMap.setZoom(defaultZoom);
+                    window.myMap.setZoom(defaultZoom);
                 });
                 window.myMap.addControl(geoLocate);
                 window.myMap.on('load',
                     function () {
-                        myMap.resize();
+                        window.myMap.resize();
                         geoLocate.trigger();
-                        
                     });
             });
         } else {
