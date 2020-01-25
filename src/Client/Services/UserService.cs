@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using CatchMe.Web.Client.Data;
 
-namespace CatchMe.Web.Client
+namespace CatchMe.Web.Client.Services
 {
     public class UserService
     {

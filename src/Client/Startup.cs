@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using Blazor.Auth0;
 using Blazored.Localisation;
+using CatchMe.Web.Client.Services;
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using TG.Blazor.IndexedDB;
