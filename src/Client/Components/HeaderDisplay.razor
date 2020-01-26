@@ -1,0 +1,17 @@
+﻿@inject IAuthenticationService authService
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark">
+        <a class="navbar-brand" href="#"><img class="logo" alt="CatchMe" src="logo.svg" /></a>
+        <ul class="navbar-nav ml-auto">
+            <NavLink class="nav-link" href="javascript:void(0)" @onclick="@(async ()=> await authService.LogOut())">
+                <span class="oi oi-account-logout" aria-hidden="true"></span> @LogoutText
+            </NavLink>
+            <span class="username">User: @authService.User.Name&nbsp;</span>
+        </ul>
+    </nav>
+</header>
+
+@code {
+    [Parameter] public string LogoutText { get; set; }
+}

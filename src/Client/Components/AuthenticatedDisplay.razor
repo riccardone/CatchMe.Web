@@ -1,8 +1,4 @@
-﻿
-
-<header>
-    <UserInfoDisplay LogoutText="@LogoutText" />
-</header>
+﻿<HeaderDisplay LogoutText="@LogoutText" />
 
 <main>
     @if (!_showMap)
@@ -16,7 +12,7 @@
     }
 </main>
 
-<footer>    
+<footer>
     <button class="btn btn-primary" @onclick="@(() => { _isInvitingFriend = true; })">Invite friend</button>
 </footer>
 
