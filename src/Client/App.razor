@@ -1,0 +1,22 @@
+﻿@using CatchMe.Web.Client.I18nText
+@inject Toolbelt.Blazor.I18nText.I18nText I18nText
+
+<CascadingAuthenticationState>
+    <AuthorizeView>
+        <Authorized>
+            <AuthenticatedDisplay SubtitleText="@site.appSubtitle" LogoutText="@site.logOut" />
+        </Authorized>
+        <NotAuthorized>
+            <NonauthenticatedDisplay SubtitleText="@site.appSubtitle" GhostModeText="@site.ghostModeLabel" LoginText="@site.login" />
+        </NotAuthorized>
+    </AuthorizeView>
+</CascadingAuthenticationState>
+
+@code {
+    site site = new site();
+
+    protected override async Task OnInitializedAsync()
+    {
+        site = await I18nText.GetTextTableAsync<site>(this);
+    }
+}

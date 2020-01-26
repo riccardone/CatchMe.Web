@@ -1,0 +1,11 @@
+﻿<header class="login" />
+<main class="login loginview">
+    <LoginDisplay LoginText="@LoginText" AppSubtitleText="@SubtitleText" GhostModeText="@GhostModeText" />
+</main>
+<footer class="login">&copy;2020 RDN Software</footer>
+
+@code {    
+    [Parameter] public string SubtitleText { get; set; }
+    [Parameter] public string GhostModeText { get; set; }
+    [Parameter] public string LoginText { get; set; }
+}

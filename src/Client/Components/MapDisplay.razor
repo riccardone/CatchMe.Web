@@ -1,0 +1,15 @@
+﻿@inject IAuthenticationService authService
+@inject IJSRuntime JSRuntime
+
+<div class="container">
+    <div id="map"></div>
+</div>
+
+@code {
+    [Parameter] public Friend Data { get; set; }
+
+    protected override void OnAfterRender(bool firstRender)
+    {
+        JSRuntime.InvokeVoidAsync("mapBoxFunctions.initMapBox");
+    }
+}

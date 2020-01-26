@@ -1,0 +1,20 @@
+﻿@inject IAuthenticationService authService
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <p><img src="images/catchme_logo_welcome_fb_color_small.png" /></p>
+            <p>@AppSubtitleText</p>
+            <p><button class="btn btn-primary" @onclick="authService.Authorize">@LoginText</button></p>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">@GhostModeText</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter] public string LoginText { get; set; }
+    [Parameter] public string AppSubtitleText { get; set; }
+    [Parameter] public string GhostModeText { get; set; }
+}

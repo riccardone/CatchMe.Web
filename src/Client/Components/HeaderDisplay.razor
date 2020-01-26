@@ -1,0 +1,39 @@
+﻿@using CatchMe.Web.Shared
+@inject IAuthenticationService authService
+@inject IJSRuntime JSRuntime
+
+<header>
+    <nav class="navbar navbar-expand-md navbar-dark">
+        <a class="navbar-brand" href="#"><img class="logo" alt="CatchMe" src="logo.svg" /></a>
+        <ul class="navbar-nav ml-auto">
+            <NavLink class="nav-link" href="javascript:void(0)" @onclick="@(async ()=> await authService.LogOut())">
+                <span class="oi oi-account-logout" aria-hidden="true"></span> @LogoutText
+            </NavLink>
+            <span class="username">User: @authService.User.Name&nbsp;</span>
+        </ul>
+    </nav>
+</header>
+
+@code {
+    [Parameter] public string LogoutText { get; set; }
+    private CurrentUser _currentUser;
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (authService.User != null)
+        {
+            await RefreshCurrentUserAsync();
+        }
+    }
+
+    private async Task RefreshCurrentUserAsync()
+    {
+        _currentUser = await Storage.GetItemAsync<CurrentUser>(JSRuntime, "currentUser");
+        if (string.IsNullOrWhiteSpace(_currentUser.DisplayName))
+        {
+            Console.WriteLine($"auth user is {authService.User.Name}");
+            Console.WriteLine("TODO set the current user");
+        }
+        Console.WriteLine($"current user is: {_currentUser.DisplayName}");
+    }
+}

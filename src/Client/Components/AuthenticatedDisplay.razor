@@ -1,0 +1,37 @@
+﻿<HeaderDisplay LogoutText="@LogoutText" />
+
+<main>
+    @if (!_showMap)
+    {
+        <YouOnMap OnClick="YouOnTheMapHandler" />
+        <FriendsDisplay />
+    }
+    else
+    {
+        <MapDisplay />
+    }
+</main>
+
+<footer>
+    <button class="btn btn-primary" @onclick="@(() => { _isInvitingFriend = true; })">Invite friend</button>
+</footer>
+
+@if (_isInvitingFriend)
+{
+    <Overlay>
+        <p>Not ready yet</p>
+        <button @onclick="@(() => { _isInvitingFriend = false; })">Cancel</button>
+    </Overlay>
+}
+
+@code {
+    bool _isInvitingFriend;
+    bool _showMap;
+    [Parameter] public string SubtitleText { get; set; }
+    [Parameter] public string LogoutText { get; set; }
+
+    void YouOnTheMapHandler()
+    {
+        _showMap = true;
+    }
+}
