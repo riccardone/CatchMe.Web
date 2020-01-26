@@ -5,6 +5,9 @@ using Microsoft.JSInterop;
 
 namespace CatchMe.Web.Client.Services
 {
+    // refactor this to use protectedbrowserstorage instead of localstorage
+    // https://docs.microsoft.com/en-us/aspnet/core/blazor/state-management?view=aspnetcore-3.1#client-side-in-the-browser
+
     public static class Storage
     {
         public static async Task SetItem(IJSRuntime jsRuntime, string key, object value)

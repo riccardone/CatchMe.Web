@@ -1,10 +1,8 @@
-using System.Collections.Generic;
 using Blazor.Auth0;
 using Blazored.Localisation;
 using CatchMe.Web.Client.Services;
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using TG.Blazor.IndexedDB;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
 
 namespace CatchMe.Web.Client
@@ -50,21 +48,6 @@ namespace CatchMe.Web.Client
             //    return new .InventoryClient(new GrpcWebCallInvoker(httpClient));
             //});
             services.AddScoped<UserService>();
-            services.AddIndexedDB(dbStore =>
-            {
-                dbStore.DbName = "CatchMeDb"; //example name
-                dbStore.Version = 1;
-
-                dbStore.Stores.Add(new StoreSchema
-                {
-                    Name = "Friend",
-                    PrimaryKey = new IndexSpec { Name = "id", KeyPath = "id", Auto = true },
-                    Indexes = new List<IndexSpec>
-                    {
-                        new IndexSpec{Name="DisplayName", KeyPath = "DisplayName", Auto=false}
-                    }
-                });
-            });
         }
 
         public void Configure(IComponentsApplicationBuilder app)
