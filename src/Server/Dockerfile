@@ -17,7 +17,7 @@ RUN dotnet build "CatchMe.Web.Server.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "CatchMe.Web.Server.csproj" -c Release -o /app/publish
-
+#test
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
