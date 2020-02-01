@@ -7,9 +7,12 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
-COPY ["Server/CatchMe.Web.Server.csproj", "Server/"]
-COPY ["Shared/CatchMe.Web.Shared.csproj", "Shared/"]
-COPY ["Client/CatchMe.Web.Client.csproj", "Client/"]
+COPY ["Server/.", "Server/"]
+COPY ["Shared/.", "Shared/"]
+COPY ["Client/.", "Client/"]
+#COPY ["Server/CatchMe.Web.Server.csproj", "Server/"]
+#COPY ["Shared/CatchMe.Web.Shared.csproj", "Shared/"]
+#COPY ["Client/CatchMe.Web.Client.csproj", "Client/"]
 RUN dotnet restore "Server/CatchMe.Web.Server.csproj"
 COPY . .
 WORKDIR "/src/Server"
@@ -17,7 +20,7 @@ RUN dotnet build "CatchMe.Web.Server.csproj" -c Release -o /app/build
 
 FROM build AS publish
 RUN dotnet publish "CatchMe.Web.Server.csproj" -c Release -o /app/publish
-#test
+
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
