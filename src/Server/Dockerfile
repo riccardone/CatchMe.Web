@@ -6,10 +6,16 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
+WORKDIR /src/Server
+COPY . /
+WORKDIR /src/Shared
+COPY . /
+WORKDIR /src/Client
+COPY . /
 WORKDIR /src
-COPY ["Server/.", "Server/"]
-COPY ["Shared/.", "Shared/"]
-COPY ["Client/.", "Client/"]
+#COPY ["Server/.", "Server/"]
+#COPY ["Shared/.", "Shared/"]
+#COPY ["Client/.", "Client/"]
 #COPY ["Server/CatchMe.Web.Server.csproj", "Server/"]
 #COPY ["Shared/CatchMe.Web.Shared.csproj", "Shared/"]
 #COPY ["Client/CatchMe.Web.Client.csproj", "Client/"]
