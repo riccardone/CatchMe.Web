@@ -13,5 +13,10 @@ namespace CatchMe.Web.Client.Services
         {
             throw new NotImplementedException();
         }
+
+        public async Task StartCurrentUserSession(string email)
+        {
+            Console.WriteLine("TODO Start current user session");
+        }
     }
 }

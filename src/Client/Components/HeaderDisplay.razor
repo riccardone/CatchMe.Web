@@ -1,5 +1,8 @@
-﻿@using CatchMe.Web.Shared
+﻿@using CatchMe.Web.Client.Services
+@using CatchMe.Web.Shared
+@using Storage = Blazor.Auth0.Storage
 @inject IAuthenticationService authService
+@inject UserService userService
 @inject IJSRuntime JSRuntime
 
 <header>
@@ -32,7 +35,9 @@
         if (string.IsNullOrWhiteSpace(_currentUser.DisplayName))
         {
             Console.WriteLine($"auth user is {authService.User.Name}");
+            Console.WriteLine($"auth user is {authService.User.Email}");
             Console.WriteLine("TODO set the current user");
+            await userService.StartCurrentUserSession(authService.User.Email);
         }
         Console.WriteLine($"current user is: {_currentUser.DisplayName}");
     }
