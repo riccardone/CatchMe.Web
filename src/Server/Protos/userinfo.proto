@@ -5,7 +5,20 @@ option csharp_namespace = "CatchMe.Web.Server.Protos";
 package UserInfo;
 
 service UserInfo {
-	rpc CurrentUser (CurrentUserRequest) returns (CurrentUserReply);	
+	rpc CurrentUser (CurrentUserRequest) returns (CurrentUserReply);
+	rpc StartCurrentUserSession (StartCurrentUserSessionRequest) returns (StartCurrentUserSessionReply);
+}
+
+message StartCurrentUserSessionRequest {
+	string DisplayName = 1;
+	string Email = 2;
+	Position LastPosition = 3;
+	repeated FriendItem items = 4;
+}
+
+message StartCurrentUserSessionReply {	
+	Position LastPosition = 1;
+	repeated FriendItem items = 2;
 }
 
 message CurrentUserRequest {
