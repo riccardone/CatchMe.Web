@@ -2,10 +2,10 @@ syntax = "proto3";
 
 option csharp_namespace = "CatchMe.Web.Server.Protos";
 
-package UserInfo;
+package CurrentUser;
 
-service UserInfo {
-	rpc CurrentUser (CurrentUserRequest) returns (CurrentUserReply);
+service CurrentUser {
+	rpc CurrentUserInfo (CurrentUserRequest) returns (CurrentUserReply);
 	rpc StartCurrentUserSession (StartCurrentUserSessionRequest) returns (StartCurrentUserSessionReply);
 }
 
