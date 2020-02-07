@@ -11,6 +11,10 @@
     <PackageReference Include="Blazored.Localisation" Version="1.1.10" />
     <PackageReference Include="Google.Protobuf" Version="3.11.2" />
     <PackageReference Include="Grpc.Net.Client" Version="2.26.0" />
+    <PackageReference Include="Grpc.Tools" Version="2.27.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.Blazor" Version="3.1.0-preview4.19579.2" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.Build" Version="3.1.0-preview4.19579.2" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.DevServer" Version="3.1.0-preview4.19579.2" />
@@ -22,7 +26,7 @@
     <ProjectReference Include="..\Shared\CatchMe.Web.Shared.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <Protobuf Include="..\CatchMe.Web.Server\Protos\userinfo.proto" GrpcServices="Client" />
+    <Protobuf Include="..\Server\Protos\currentuser.proto" GrpcServices="Client" />
   </ItemGroup>
   <ItemGroup>
     <Watch Remove="i18ntext\site.en.json" />

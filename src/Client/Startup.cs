@@ -1,6 +1,9 @@
+using System;
+using System.Net.Http;
 using Blazor.Auth0;
 using Blazored.Localisation;
 using CatchMe.Web.Client.Services;
+using CatchMe.Web.Server.Protos;
 using Microsoft.AspNetCore.Components.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Toolbelt.Blazor.Extensions.DependencyInjection;
@@ -9,6 +12,7 @@ namespace CatchMe.Web.Client
 {
     public class Startup
     {
+        public const string BackendUrl = "https://localhost:5001";
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddBlazorAuth0(options =>
@@ -42,11 +46,11 @@ namespace CatchMe.Web.Client
                 options.AddPolicy("execute:increment_counter", policy => policy.RequireClaim("permissions", "execute:increment_counter"));
             });
             services.AddI18nText<Startup>();
-            //services.AddScoped(serviceProvider =>
-            //{
-            //    var httpClient = new HttpClient { BaseAddress = new Uri("todo") };
-            //    return new .InventoryClient(new GrpcWebCallInvoker(httpClient));
-            //});
+            services.AddScoped(serviceProvider =>
+            {
+                var httpClient = new HttpClient { BaseAddress = new Uri(BackendUrl) };
+                return new CurrentUser.CurrentUserClient(new GrpcWebCallInvoker(httpClient));
+            });
             services.AddScoped<UserService>();
         }
 
