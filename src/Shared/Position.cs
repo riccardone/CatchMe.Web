@@ -2,10 +2,11 @@
 {
     public class Position
     {
-        public Position(float longitude, float latitude)
+        public Position(double longitude, double latitude, double accuracy)
         {
             Longitude = longitude;
             Latitude = latitude;
+            Accuracy = accuracy;
         }
 
         public Position()
@@ -13,7 +14,11 @@
             
         }
 
-        public float Longitude { get; set; }
-        public float Latitude { get; set; }
+        public double Longitude { get; }
+        public double Latitude { get; }
+        /// <summary>
+        /// More or less accuracy in meters
+        /// </summary>
+        public double Accuracy { get; }
     }
 }

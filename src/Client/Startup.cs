@@ -51,7 +51,6 @@ namespace CatchMe.Web.Client
                 var httpClient = new HttpClient { BaseAddress = new Uri(BackendUrl) };
                 return new CurrentUser.CurrentUserClient(new GrpcWebCallInvoker(httpClient));
             });
-            services.AddScoped<UserService>();
         }
 
         public void Configure(IComponentsApplicationBuilder app)

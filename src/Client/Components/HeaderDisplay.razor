@@ -1,9 +1,14 @@
-﻿@using CatchMe.Web.Client.Services
+﻿@using System.Threading
+@using CatchMe.Web.Client.Services
+@using CatchMe.Web.Server.Protos
 @using CatchMe.Web.Shared
+@using Google.Protobuf.Reflection
 @using Storage = Blazor.Auth0.Storage
+@using CurrentUser = CatchMe.Web.Shared.CurrentUser
+@using Timer = System.Timers.Timer
 @inject IAuthenticationService authService
-@inject UserService userService
 @inject IJSRuntime JSRuntime
+@inject Server.Protos.CurrentUser.CurrentUserClient CurrentUserClient
 
 <header>
     <nav class="navbar navbar-expand-md navbar-dark">
@@ -20,25 +25,56 @@
 @code {
     [Parameter] public string LogoutText { get; set; }
     private CurrentUser _currentUser;
+    private Timer _timer;
+
+    // https://github.com/dotnet/aspnetcore/issues/15559#issuecomment-427964152
 
     protected override async Task OnInitializedAsync()
     {
-        if (authService.User != null)
+        Console.WriteLine("qualcuno mi ha chiamato");
+        var ciccio = new Timer(5000);
+
+        ciccio.Enabled = true;
+        ciccio.Elapsed += (sender, args) =>
         {
-            await RefreshCurrentUserAsync();
-        }
+            Console.WriteLine("timer elapsed");
+            try
+            {
+                var location = JSRuntime.InvokeAsync<Shared.Position>("mapBoxFunctions.getLocation").Result;
+                Console.WriteLine("position is Longitude: " + location.Longitude + " latitude: " + location.Latitude);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
+        };
+        ciccio.Start();
     }
 
-    private async Task RefreshCurrentUserAsync()
-    {
-        _currentUser = await Storage.GetItemAsync<CurrentUser>(JSRuntime, "currentUser");
-        if (string.IsNullOrWhiteSpace(_currentUser.DisplayName))
-        {
-            Console.WriteLine($"auth user is {authService.User.Name}");
-            Console.WriteLine($"auth user is {authService.User.Email}");
-            Console.WriteLine("TODO set the current user");
-            await userService.StartCurrentUserSession(authService.User.Email);
-        }
-        Console.WriteLine($"current user is: {_currentUser.DisplayName}");
-    }
+    //[JSInvokable("RefreshCurrentUserAsync")]
+    //public async Task RefreshCurrentUserAsync(dynamic position)
+    //{
+    //    Console.WriteLine("qualcuno mi ha chiamato");
+    //    if (authService.User == null)
+    //        return;
+    //    _currentUser = await Storage.GetItemAsync<CurrentUser>(JSRuntime, "currentUser");
+    //    if (string.IsNullOrWhiteSpace(_currentUser.DisplayName))
+    //    {
+    //        Console.WriteLine($"auth user is {authService.User.Name}");
+    //        Console.WriteLine($"auth user is {authService.User.Email}");
+    //        Console.WriteLine("set the current user");
+    //        CurrentUserClient.StartCurrentUserSession(new StartCurrentUserSessionRequest
+    //        {
+    //            DisplayName = authService.User.Name,
+    //            Email = authService.User.Email,
+    //            LastPosition = new Server.Protos.Position
+    //            {
+    //                Latitude = (float)position.latitude,
+    //                Longitude = (float)position.longitude,
+    //                Accuracy = (float)position.accuracy
+    //            }
+    //        });
+    //    }
+    //    Console.WriteLine($"current user is: {_currentUser.DisplayName}");
+    //}
 }

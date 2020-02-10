@@ -20,6 +20,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Blazor.DevServer" Version="3.1.0-preview4.19579.2" />
     <PackageReference Include="Microsoft.AspNetCore.Blazor.HttpClient" Version="3.1.0-preview4.19579.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Authorization" Version="3.1.0" />
+    <PackageReference Include="microsoft.csharp" Version="4.7.0" />
     <PackageReference Include="Toolbelt.Blazor.I18nText" Version="7.0.1.1" />
   </ItemGroup>
   <ItemGroup>

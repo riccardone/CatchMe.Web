@@ -25,7 +25,7 @@ namespace CatchMe.Web.Server.Controllers
         public IEnumerable<Friend> Get()
         {
             var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new Friend($"test {index}", new Position(1, 2), false, false,
+            return Enumerable.Range(1, 5).Select(index => new Friend($"test {index}", new Position(1, 2, 0), false, false,
                     0, string.Empty, false, string.Empty, 0, 0, 0, DateTime.MinValue, DateTime.MinValue, false, false))
                 .ToArray();
         }
