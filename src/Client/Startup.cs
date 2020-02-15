@@ -46,6 +46,7 @@ namespace CatchMe.Web.Client
                 options.AddPolicy("execute:increment_counter", policy => policy.RequireClaim("permissions", "execute:increment_counter"));
             });
             services.AddI18nText<Startup>();
+            //services.AddSingleton<LocationService>();
             services.AddScoped(serviceProvider =>
             {
                 var httpClient = new HttpClient { BaseAddress = new Uri(BackendUrl) };

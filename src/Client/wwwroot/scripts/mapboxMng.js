@@ -26,17 +26,20 @@
                         geoLocate.trigger();
                     });
             });
+            console.log("setting interval");
             // TODO set the central interval to handle positions
-            //setInterval(function () {
-            //    navigator.geolocation.getCurrentPosition(position => {
-            //        console.log("position is longitude: " + position.coords.longitude + " latitude: " + position.coords.latitude);
-            //        DotNet.invokeMethodAsync('CatchMe.Web.Client', 'RefreshCurrentUserAsync')
-            //            .then(data => {
-            //                data.push(position);
-            //                console.log(data);
-            //            });
-            //    });
-            //}, 5000);
+            setInterval(function () {
+                console.log("time elapsed");
+                navigator.geolocation.getCurrentPosition(position => {
+                    console.log("position is longitude: " + position.coords.longitude + " latitude: " + position.coords.latitude + " at: " + new Date());
+                    DotNet.invokeMethodAsync('CatchMe.Web.Client', 'RefreshCurrentUserAsync', position);
+                    //.then(data => {
+                    //    console.log("pushing data to c# method from js");
+                    //    data.push(position);
+                    //    console.log(data);
+                    //});
+                });
+            }, 5000);
         } else {
             /* geolocation IS NOT available, handle it */
             console.log("not available");

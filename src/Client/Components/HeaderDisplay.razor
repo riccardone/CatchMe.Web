@@ -24,32 +24,43 @@
 
 @code {
     [Parameter] public string LogoutText { get; set; }
-    private CurrentUser _currentUser;
-    private Timer _timer;
+
+    [JSInvokable]
+    public static Task RefreshCurrentUserAsync(dynamic position)
+    {
+        Console.WriteLine("qualcuno mi ha chiamato");
+        // coords.longitude
+        Console.WriteLine("c# position is longitude: " + position.coords.longitude + " latitude: " + position.coords.latitude + " at: " + DateTime.Now.ToString());
+        return Task.CompletedTask;
+    //Console.WriteLine("position is Longitude: " + position.Longitude + " latitude: " + position.Latitude);
+    }
+
+    //private CurrentUser _currentUser;
+    //private Timer _timer;
 
     // https://github.com/dotnet/aspnetcore/issues/15559#issuecomment-427964152
 
-    protected override async Task OnInitializedAsync()
-    {
-        Console.WriteLine("qualcuno mi ha chiamato");
-        var ciccio = new Timer(5000);
+    //protected override async Task OnInitializedAsync()
+    //{
+    //    Console.WriteLine("qualcuno mi ha chiamato");
+    //    var ciccio = new Timer(5000);
 
-        ciccio.Enabled = true;
-        ciccio.Elapsed += (sender, args) =>
-        {
-            Console.WriteLine("timer elapsed");
-            try
-            {
-                var location = JSRuntime.InvokeAsync<Shared.Position>("mapBoxFunctions.getLocation").Result;
-                Console.WriteLine("position is Longitude: " + location.Longitude + " latitude: " + location.Latitude);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-            }
-        };
-        ciccio.Start();
-    }
+    //    ciccio.Enabled = true;
+    //    ciccio.Elapsed += (sender, args) =>
+    //    {
+    //        Console.WriteLine("timer elapsed");
+    //        try
+    //        {
+    //            var location = JSRuntime.InvokeAsync<Shared.Position>("mapBoxFunctions.getLocation").Result;
+    //            Console.WriteLine("position is Longitude: " + location.Longitude + " latitude: " + location.Latitude);
+    //        }
+    //        catch (Exception e)
+    //        {
+    //            Console.WriteLine(e);
+    //        }
+    //    };
+    //    ciccio.Start();
+    //}
 
     //[JSInvokable("RefreshCurrentUserAsync")]
     //public async Task RefreshCurrentUserAsync(dynamic position)
